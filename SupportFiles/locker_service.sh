@@ -1,0 +1,1 @@
+pm2 start /home/pi/server/locker_services_by_pi.js
