@@ -1,7 +1,7 @@
 # 克隆SD卡
 
-1. 使用win32diskimager将老TF卡内容备份为img文件。
-2. 用win32diskimager将此img文件写入新TF卡。
+1. 先准备一张母TF卡，需要比目标TF卡的容量要小
+2. 使用 EaseUS Partition Master 进行双盘 Clone， 从母TF卡clone到目标TF卡
 
 # 安装新pi
 
