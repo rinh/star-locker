@@ -31,10 +31,10 @@ function run() {
 run 'mkdir -p /home/pi/server'
 upload "./server/locker_services_by_pi.js" "/home/pi/server/locker_services_by_pi.js"
 upload "./server/package.json" "/home/pi/server/package.json"
-run 'cd /home/pi/server && yarn install'
+run 'cd /home/pi/server && npm install'
 
 # PM2 安装
-run 'sudo yarn global add pm2'
+run 'sudo npm install -g pm2'
 
 # PM2 管理进程
 # 自启动
@@ -54,5 +54,6 @@ run 'sudo yarn global add pm2'
 # run 'pm2 start /home/pi/server/locker_services_by_pi.js'
 
 upload "./SupportFiles/locker_service.sh" "/etc/profile.d/locker_service.sh"
+upload "./SupportFiles/rc.local" "/etc/rc.local"
 
 

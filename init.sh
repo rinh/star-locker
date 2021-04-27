@@ -28,21 +28,32 @@ function upload() {
 
 sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'echo hello'
 
+
+upload "./SupportFiles/node-v14.16.1-linux-armv7l.tar.xz" "/home/pi/node-v14.16.1-linux-armv7l.tar.xz"
+sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'sudo apt-get install gcc g++ make xz-utils'
+sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'cd /home/pi && tar -xvf node-v14.16.1-linux-armv7l.tar.xz && cd node-v14.16.1-linux-armv7l && sudo cp -R * /usr/local/'
+
+
+
 # apt-get 源 
 upload "./SupportFiles/sources.list" "/etc/apt/sources.list"
 upload "./SupportFiles/raspi.list" "/etc/apt/sources.list.d/raspi.list"
 sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'sudo apt-get update'
 
 # nodejs
+upload "./SupportFiles/node-v14.16.1-linux-armv7l.tar.xz" "/home/pi/node-v14.16.1-linux-armv7l.tar.xz"
 sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'sudo apt-get install gcc g++ make'
-sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -'
-sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list'
-sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'sudo apt-get update && sudo apt-get install yarn'
+sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'cd /home/pi && tar -xzf node-v14.16.1-linux-armv7l.tar.xz && cd node-v14.16.1-linux-armv7l && sudo cp -R * /usr/local/'
+# sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -'
+# sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list'
+# sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'sudo apt-get update && sudo apt-get install yarn'
+
 
 # python3.6
 upload "./SupportFiles/Berryconda3-2.0.0-Linux-armv7l.sh" "~/Berryconda3-2.0.0-Linux-armv7l.sh"
 sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'chmod +x ~/Berryconda3-2.0.0-Linux-armv7l.sh'
 sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP '~/Berryconda3-2.0.0-Linux-armv7l.sh'
+sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'source /home/pi/.bashrc'
 sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'conda config --add channels rpi'
 sshpass -p $ssh_passwd  ssh -o StrictHostKeyChecking=no pi@$IP 'conda install python=3.6'
 
